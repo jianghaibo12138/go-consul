@@ -1,6 +1,7 @@
 package consul_client
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -183,6 +184,138 @@ func TestConsulClient_Maintenance(t *testing.T) {
 				t.Errorf("Maintenance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+		})
+	}
+}
+
+func TestConsulClient_Metrics(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	type args struct {
+		format string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{name: "Metrics", fields: f, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			_, err := client.Metrics(tt.args.format)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Metrics() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestConsulClient_MetricsWithFormat(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	type args struct {
+		format string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{name: "MetricsWithFormat", fields: f, args: args{
+			format: "prometheus",
+		}, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			_, err := client.MetricsWithFormat(tt.args.format)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MetricsWithFormat() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestConsulClient_Monitor(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	type args struct {
+		logJson    bool
+		logLevel   string
+		logChannel chan []byte
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{name: "Monitor", fields: f, args: args{
+			logJson:    true,
+			logLevel:   "debug",
+			logChannel: make(chan []byte),
+		}, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			if err := client.Monitor(tt.args.logJson, tt.args.logLevel, tt.args.logChannel); (err != nil) != tt.wantErr {
+				t.Errorf("Monitor() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			select {
+			case log := <-tt.args.logChannel:
+				fmt.Println(log)
+			}
+
 		})
 	}
 }

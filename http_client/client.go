@@ -39,3 +39,4 @@ func (client *HttpClient) Request(data []byte) (*http.Response, error) {
 	}
 	return resp, nil
 }
+
