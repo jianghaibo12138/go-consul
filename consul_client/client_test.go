@@ -64,11 +64,12 @@ func TestConsulClient_GetMembers(t *testing.T) {
 				Port:  tt.fields.Port,
 				Token: tt.fields.Token,
 			}
-			_, err := client.GetMembers()
+			got, err := client.GetMembers()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetMembers() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+			fmt.Println(got)
 		})
 	}
 }
@@ -169,7 +170,10 @@ func TestConsulClient_Maintenance(t *testing.T) {
 		want    int
 		wantErr bool
 	}{
-		{name: "Maintenance", fields: f, wantErr: false},
+		{name: "Maintenance", fields: f, args: args{
+			enable: false,
+			reason: "not+necessary",
+		}, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -316,6 +320,132 @@ func TestConsulClient_Monitor(t *testing.T) {
 				fmt.Println(log)
 			}
 
+		})
+	}
+}
+
+func TestConsulClient_Join(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	type args struct {
+		address string
+		wan     bool
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{name: "Join", fields: f, args: args{
+			address: "127.0.0.1:5000",
+			wan:     true,
+		}, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			_, err := client.Join(tt.args.address, tt.args.wan)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Join() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestConsulClient_Leave(t *testing.T)  {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		wantErr bool
+	}{
+		{name: "Leave", fields: f, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			_, err := client.Leave()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leave() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestConsulClient_ForceLeave(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "",
+	}
+	type args struct {
+		node  string
+		prune bool
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *[]byte
+		wantErr bool
+	}{
+		{name: "ForceLeave", fields: f, args: args{
+			node: "gsio",
+			prune: true,
+		}, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			got, err := client.ForceLeave(tt.args.node, tt.args.prune)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ForceLeave() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			fmt.Println(got)
 		})
 	}
 }
