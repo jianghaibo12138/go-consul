@@ -21,7 +21,7 @@ func TestConsulClient_GetHostInfos(t *testing.T) {
 		fields  fields
 		wantErr bool
 	}{
-		{name: "GetHostInfos", fields: f, wantErr: false},
+		{name: "AgentGetHostInfos", fields: f, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -30,9 +30,9 @@ func TestConsulClient_GetHostInfos(t *testing.T) {
 				Port:  tt.fields.Port,
 				Token: tt.fields.Token,
 			}
-			_, err := client.GetHostInfos()
+			_, err := client.AgentGetHostInfos()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetHostInfos() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentGetHostInfos() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -55,7 +55,7 @@ func TestConsulClient_GetMembers(t *testing.T) {
 		fields  fields
 		wantErr bool
 	}{
-		{name: "GetMembers", fields: f, wantErr: false},
+		{name: "AgentGetMembers", fields: f, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -64,9 +64,9 @@ func TestConsulClient_GetMembers(t *testing.T) {
 				Port:  tt.fields.Port,
 				Token: tt.fields.Token,
 			}
-			got, err := client.GetMembers()
+			got, err := client.AgentGetMembers()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetMembers() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentGetMembers() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			fmt.Println(got)
@@ -91,7 +91,7 @@ func TestConsulClient_GetSelfConfig(t *testing.T) {
 		fields  fields
 		wantErr bool
 	}{
-		{name: "GetSelfConfig", fields: f, wantErr: false},
+		{name: "AgentGetSelfConfig", fields: f, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -101,9 +101,9 @@ func TestConsulClient_GetSelfConfig(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.GetSelfConfig()
+			_, err := client.AgentGetSelfConfig()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetSelfConfig() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentGetSelfConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -170,7 +170,7 @@ func TestConsulClient_Maintenance(t *testing.T) {
 		want    int
 		wantErr bool
 	}{
-		{name: "Maintenance", fields: f, args: args{
+		{name: "AgentMaintenance", fields: f, args: args{
 			enable: false,
 			reason: "not+necessary",
 		}, wantErr: false},
@@ -183,9 +183,9 @@ func TestConsulClient_Maintenance(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.Maintenance(tt.args.enable, tt.args.reason)
+			_, err := client.AgentMaintenance(tt.args.enable, tt.args.reason)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Maintenance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentMaintenance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -213,7 +213,7 @@ func TestConsulClient_Metrics(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{name: "Metrics", fields: f, wantErr: false},
+		{name: "AgentMetrics", fields: f, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -223,9 +223,9 @@ func TestConsulClient_Metrics(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.Metrics(tt.args.format)
+			_, err := client.AgentMetrics(tt.args.format)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Metrics() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentMetrics() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -253,7 +253,7 @@ func TestConsulClient_MetricsWithFormat(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{name: "MetricsWithFormat", fields: f, args: args{
+		{name: "AgentMetricsWithFormat", fields: f, args: args{
 			format: "prometheus",
 		}, wantErr: false},
 	}
@@ -265,9 +265,9 @@ func TestConsulClient_MetricsWithFormat(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.MetricsWithFormat(tt.args.format)
+			_, err := client.AgentMetricsWithFormat(tt.args.format)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("MetricsWithFormat() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentMetricsWithFormat() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -297,7 +297,7 @@ func TestConsulClient_Monitor(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{name: "Monitor", fields: f, args: args{
+		{name: "AgentMonitor", fields: f, args: args{
 			logJson:    true,
 			logLevel:   "debug",
 			logChannel: make(chan []byte),
@@ -311,8 +311,8 @@ func TestConsulClient_Monitor(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			if err := client.Monitor(tt.args.logJson, tt.args.logLevel, tt.args.logChannel); (err != nil) != tt.wantErr {
-				t.Errorf("Monitor() error = %v, wantErr %v", err, tt.wantErr)
+			if err := client.AgentMonitor(tt.args.logJson, tt.args.logLevel, tt.args.logChannel); (err != nil) != tt.wantErr {
+				t.Errorf("AgentMonitor() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			select {
@@ -346,7 +346,7 @@ func TestConsulClient_Join(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{name: "Join", fields: f, args: args{
+		{name: "AgentJoin", fields: f, args: args{
 			address: "127.0.0.1:5000",
 			wan:     true,
 		}, wantErr: false},
@@ -359,9 +359,9 @@ func TestConsulClient_Join(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.Join(tt.args.address, tt.args.wan)
+			_, err := client.AgentJoin(tt.args.address, tt.args.wan)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Join() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentJoin() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -385,7 +385,7 @@ func TestConsulClient_Leave(t *testing.T)  {
 		fields  fields
 		wantErr bool
 	}{
-		{name: "Leave", fields: f, wantErr: false},
+		{name: "AgentLeave", fields: f, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -395,9 +395,9 @@ func TestConsulClient_Leave(t *testing.T)  {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			_, err := client.Leave()
+			_, err := client.AgentLeave()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Leave() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentLeave() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
@@ -427,7 +427,7 @@ func TestConsulClient_ForceLeave(t *testing.T) {
 		want    *[]byte
 		wantErr bool
 	}{
-		{name: "ForceLeave", fields: f, args: args{
+		{name: "AgentForceLeave", fields: f, args: args{
 			node: "gsio",
 			prune: true,
 		}, wantErr: false},
@@ -440,9 +440,9 @@ func TestConsulClient_ForceLeave(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			got, err := client.ForceLeave(tt.args.node, tt.args.prune)
+			got, err := client.AgentForceLeave(tt.args.node, tt.args.prune)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ForceLeave() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AgentForceLeave() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			fmt.Println(got)

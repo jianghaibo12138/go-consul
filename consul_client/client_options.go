@@ -5,5 +5,6 @@ type ConsulClientOption struct {
 }
 
 const (
-	CONSUL_TOKEN_KEY = "X-Consul-Token"
+	CONSUL_TOKEN_KEY     = "X-Consul-Token"
+	CONSUL_NAMESPACE_KEY = "X-Consul-Namespace"
 )
