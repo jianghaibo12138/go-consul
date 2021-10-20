@@ -10,7 +10,7 @@ import (
 
 func (client *ConsulClient) ConfigUpsert(dc, ns, kind, name, protocol string, cas int) (bool, error) {
 	url := fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, config.CONFIG_UPSERT[1])
-	paras := packageQueryParam(dc, "", "", "", "", ns)
+	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s&cas=%d", url, paras, cas)
 	}
@@ -43,7 +43,7 @@ func (client *ConsulClient) ConfigUpsert(dc, ns, kind, name, protocol string, ca
 
 func (client *ConsulClient) ConfigGetter(dc, ns, kind, name string) (*config.ResponseConfig, error) {
 	url := fmt.Sprintf("%s/%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, config.CONFIG_GETTER[1]), kind, name)
-	paras := packageQueryParam(dc, "", "", "", "", ns)
+	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -71,7 +71,7 @@ func (client *ConsulClient) ConfigGetter(dc, ns, kind, name string) (*config.Res
 
 func (client *ConsulClient) ConfigListGetter(dc, ns, kind string) (*[]config.ResponseConfig, error) {
 	url := fmt.Sprintf("%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, config.CONFIG_LIST_GETTER[1]), kind)
-	paras := packageQueryParam(dc, "", "", "", "", ns)
+	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -99,7 +99,7 @@ func (client *ConsulClient) ConfigListGetter(dc, ns, kind string) (*[]config.Res
 
 func (client *ConsulClient) ConfigDelete(dc, ns, kind, name string) *config.ResponseConfig {
 	url := fmt.Sprintf("%s/%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, config.CONFIG_DELETE[1]), kind, name)
-	paras := packageQueryParam(dc, "", "", "", "", ns)
+	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
