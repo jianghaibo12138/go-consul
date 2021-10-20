@@ -1,11 +1,11 @@
 package consul_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/catalog"
-	"amazing2j.com/go-consul/http_client"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"jianghaibo12138/go-consul/consul_client/catalog"
+	"jianghaibo12138/go-consul/http_client"
 	"strings"
 )
 

@@ -1,11 +1,11 @@
 package consul_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/kv"
-	"amazing2j.com/go-consul/http_client"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"jianghaibo12138/go-consul/consul_client/kv"
+	"jianghaibo12138/go-consul/http_client"
 )
 
 func (client *ConsulClient) UpsertKey(ns, key, dc, acquire, release string, flags, cas int, value []byte) (bool, error) {

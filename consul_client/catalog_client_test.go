@@ -1,8 +1,8 @@
 package consul_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/catalog"
 	"fmt"
+	"jianghaibo12138/go-consul/consul_client/catalog"
 	"reflect"
 	"testing"
 )

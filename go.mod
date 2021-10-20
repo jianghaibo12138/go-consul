@@ -1,3 +1,3 @@
-module amazing2j.com/go-consul
+module jianghaibo12138/go-consul
 
 go 1.17

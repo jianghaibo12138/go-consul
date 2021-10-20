@@ -1,11 +1,11 @@
 package consul_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/config"
-	"amazing2j.com/go-consul/http_client"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"jianghaibo12138/go-consul/consul_client/config"
+	"jianghaibo12138/go-consul/http_client"
 )
 
 func (client *ConsulClient) ConfigUpsert(dc, ns, kind, name, protocol string, cas int) (bool, error) {

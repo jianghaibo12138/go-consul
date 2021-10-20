@@ -1,12 +1,12 @@
 package http_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/agent"
 	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"jianghaibo12138/go-consul/consul_client/agent"
 	"net/http"
 )
 

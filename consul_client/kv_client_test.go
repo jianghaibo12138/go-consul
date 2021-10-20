@@ -1,9 +1,9 @@
 package consul_client
 
 import (
-	"amazing2j.com/go-consul/consul_client/kv"
 	"encoding/json"
 	"fmt"
+	"jianghaibo12138/go-consul/consul_client/kv"
 	"testing"
 )
 
