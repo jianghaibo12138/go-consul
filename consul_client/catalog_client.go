@@ -266,3 +266,31 @@ func (client *ConsulClient) CatalogNodeServices(node, dc, filter, ns string) (*c
 	}
 	return &services, nil
 }
+
+func (client *ConsulClient) CatalogGatewayServices(gateway, dc, ns string) (*catalog.Gateway, error) {
+	url := fmt.Sprintf("%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, catalog.CATALOG_GATEWAY_SERVICES[1]), gateway)
+	paras := packageQueryParam(dc, "", "", "", "", ns)
+	if len(paras) != 0 {
+		url = fmt.Sprintf("%s?%s", url, paras)
+	}
+	httpClient := http_client.HttpClient{
+		Method:      catalog.CATALOG_GATEWAY_SERVICES[0],
+		Url:         url,
+		ContentType: catalog.CATALOG_GATEWAY_SERVICES[2],
+		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
+	}
+	response, err := httpClient.Request([]byte{})
+	if err != nil {
+		return nil, err
+	}
+	bytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+	var gateways catalog.Gateway
+	err = json.Unmarshal(bytes, &gateways)
+	if err != nil {
+		return nil, err
+	}
+	return &gateways, nil
+}
