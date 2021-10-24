@@ -42,7 +42,7 @@ func packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, acquire, release 
 	return paraStr
 }
 
-func packageQueryBoolParam(recurse, raw, keys, separator bool) string {
+func packageQueryBoolParam(recurse, raw, keys, separator, passing bool) string {
 	var paraStrArr []string
 	if recurse {
 		paraStrArr = append(paraStrArr, fmt.Sprintf("recurse=%v", recurse))
@@ -55,6 +55,9 @@ func packageQueryBoolParam(recurse, raw, keys, separator bool) string {
 	}
 	if separator {
 		paraStrArr = append(paraStrArr, fmt.Sprintf("separator=%v", separator))
+	}
+	if passing {
+		paraStrArr = append(paraStrArr, fmt.Sprintf("passing=%v", passing))
 	}
 	var paraStr string
 	if len(paraStrArr) != 0 {

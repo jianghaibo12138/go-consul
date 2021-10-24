@@ -46,10 +46,10 @@ func (client *ConsulClient) ReadKey(ns, key, dc string, recurse, raw, keys, sepa
 	url := fmt.Sprintf("%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, kv.KV_READ_KEY[1]), key)
 	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
-		paras = fmt.Sprintf("%s&%s", paras, packageQueryBoolParam(recurse, raw, keys, separator))
+		paras = fmt.Sprintf("%s&%s", paras, packageQueryBoolParam(recurse, raw, keys, separator, false))
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
-	parasBool := packageQueryBoolParam(recurse, raw, keys, separator)
+	parasBool := packageQueryBoolParam(recurse, raw, keys, separator, false)
 	if len(parasBool) != 0 {
 		url = fmt.Sprintf("%s?%s", url, parasBool)
 	}
@@ -98,7 +98,7 @@ func (client *ConsulClient) DeleteKey(ns, key, dc string, cas int, recurse bool)
 	if len(parasInt) != 0 {
 		url = fmt.Sprintf("%s?%s", url, parasInt)
 	}
-	parasBool := packageQueryBoolParam(recurse, false, false, false)
+	parasBool := packageQueryBoolParam(recurse, false, false, false, false)
 	if len(parasBool) != 0 {
 		url = fmt.Sprintf("%s?%s", url, parasBool)
 	}
