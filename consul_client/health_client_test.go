@@ -2,7 +2,7 @@ package consul_client
 
 import (
 	"fmt"
-	"jianghaibo12138/go-consul/consul_client/health"
+	"github.com/jianghaibo12138/go-consul/consul_client/health"
 	"testing"
 )
 

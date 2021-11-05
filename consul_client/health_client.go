@@ -2,6 +2,7 @@ package consul_client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jianghaibo12138/go-consul/consul_client/health"
 	"github.com/jianghaibo12138/go-consul/http_client"
@@ -24,6 +25,9 @@ func (client *ConsulClient) NodeHealthStatus(node, ns, dc, filter string) ([]hea
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -54,6 +58,9 @@ func (client *ConsulClient) ServiceHealthStatus(service, ns, dc, filter, near, n
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -83,6 +90,9 @@ func (client *ConsulClient) ServiceInstances(service, ns, dc, filter, near, tag,
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {

@@ -2,7 +2,7 @@ package consul_client
 
 import (
 	"fmt"
-	"jianghaibo12138/go-consul/consul_client/config"
+	"github.com/jianghaibo12138/go-consul/consul_client/config"
 	"reflect"
 	"testing"
 )
@@ -175,7 +175,8 @@ func TestConsulClient_ConfigDelete(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   *config.ResponseConfig
+		want1  *config.ResponseConfig
+		want2  error
 	}{
 		{name: "ConfigListGetter", fields: f, args: args{
 			kind: "service-defaults",
@@ -190,8 +191,8 @@ func TestConsulClient_ConfigDelete(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			if got := client.ConfigDelete(tt.args.dc, tt.args.ns, tt.args.kind, tt.args.name); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ConfigDelete() = %v, want %v", got, tt.want)
+			if got, _ := client.ConfigDelete(tt.args.dc, tt.args.ns, tt.args.kind, tt.args.name); !reflect.DeepEqual(got, tt.want1) {
+				t.Errorf("ConfigDelete() = %v, want1 %v, want2 %v", got, tt.want1, tt.want2)
 			}
 		})
 	}

@@ -2,6 +2,7 @@ package consul_client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jianghaibo12138/go-consul/consul_client/config"
 	"github.com/jianghaibo12138/go-consul/http_client"
@@ -28,6 +29,9 @@ func (client *ConsulClient) ConfigUpsert(dc, ns, kind, name, protocol string, ca
 	response, err := httpClient.Request(jsonBytes)
 	if err != nil {
 		return false, err
+	}
+	if response.StatusCode != 200 {
+		return false, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -57,6 +61,9 @@ func (client *ConsulClient) ConfigGetter(dc, ns, kind, name string) (*config.Res
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -85,6 +92,9 @@ func (client *ConsulClient) ConfigListGetter(dc, ns, kind string) (*[]config.Res
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -97,7 +107,7 @@ func (client *ConsulClient) ConfigListGetter(dc, ns, kind string) (*[]config.Res
 	return &res, nil
 }
 
-func (client *ConsulClient) ConfigDelete(dc, ns, kind, name string) *config.ResponseConfig {
+func (client *ConsulClient) ConfigDelete(dc, ns, kind, name string) (*config.ResponseConfig, error) {
 	url := fmt.Sprintf("%s/%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, config.CONFIG_DELETE[1]), kind, name)
 	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "")
 	if len(paras) != 0 {
@@ -111,11 +121,14 @@ func (client *ConsulClient) ConfigDelete(dc, ns, kind, name string) *config.Resp
 	}
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
-		return nil
+		return nil, nil
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	_, err = ioutil.ReadAll(response.Body)
 	if err != nil {
-		return nil
+		return nil, nil
 	}
-	return nil
+	return nil, nil
 }

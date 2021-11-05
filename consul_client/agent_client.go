@@ -2,6 +2,7 @@ package consul_client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jianghaibo12138/go-consul/consul_client/agent"
 	"github.com/jianghaibo12138/go-consul/http_client"
@@ -18,6 +19,9 @@ func (client *ConsulClient) AgentGetHostInfos() (*agent.Agent, error) {
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -42,6 +46,9 @@ func (client *ConsulClient) AgentGetMembers() (*[]agent.Members, error) {
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -64,6 +71,9 @@ func (client *ConsulClient) AgentGetSelfConfig() (*agent.SelfConfig, error) {
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -88,6 +98,9 @@ func (client *ConsulClient) AgentReload() (int, error) {
 	if err != nil {
 		return 0, err
 	}
+	if response.StatusCode != 200 {
+		return 0, errors.New(response.Status)
+	}
 	return response.StatusCode, nil
 }
 
@@ -101,6 +114,9 @@ func (client *ConsulClient) AgentMaintenance(enable bool, reason string) (int, e
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return 0, err
+	}
+	if response.StatusCode != 200 {
+		return 0, errors.New(response.Status)
 	}
 	return response.StatusCode, nil
 }
@@ -121,6 +137,9 @@ func (client *ConsulClient) AgentMetrics(format string) (*agent.Metrics, error) 
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -145,6 +164,9 @@ func (client *ConsulClient) AgentMetricsWithFormat(format string) (*[]byte, erro
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -189,6 +211,9 @@ func (client *ConsulClient) AgentJoin(address string, wan bool) (*[]byte, error)
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -206,6 +231,9 @@ func (client *ConsulClient) AgentLeave() (*[]byte, error) {
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -228,6 +256,9 @@ func (client *ConsulClient) AgentForceLeave(node string, prune bool) (*[]byte, e
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {

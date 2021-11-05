@@ -2,6 +2,7 @@ package consul_client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jianghaibo12138/go-consul/consul_client/kv"
 	"github.com/jianghaibo12138/go-consul/http_client"
@@ -29,6 +30,9 @@ func (client *ConsulClient) UpsertKey(ns, key, dc, acquire, release string, flag
 	response, err := httpClient.Request(value)
 	if err != nil {
 		return false, err
+	}
+	if response.StatusCode != 200 {
+		return false, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -63,6 +67,9 @@ func (client *ConsulClient) ReadKey(ns, key, dc string, recurse, raw, keys, sepa
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -112,6 +119,9 @@ func (client *ConsulClient) DeleteKey(ns, key, dc string, cas int, recurse bool)
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return false, err
+	}
+	if response.StatusCode != 200 {
+		return false, errors.New(response.Status)
 	}
 	jsonBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {

@@ -3,7 +3,7 @@ package consul_client
 import (
 	"encoding/json"
 	"fmt"
-	"jianghaibo12138/go-consul/consul_client/kv"
+	"github.com/jianghaibo12138/go-consul/consul_client/kv"
 	"testing"
 )
 

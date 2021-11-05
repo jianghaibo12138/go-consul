@@ -2,7 +2,7 @@ package consul_client
 
 import (
 	"fmt"
-	"jianghaibo12138/go-consul/consul_client/catalog"
+	"github.com/jianghaibo12138/go-consul/consul_client/catalog"
 	"reflect"
 	"testing"
 )

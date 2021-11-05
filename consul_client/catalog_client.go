@@ -2,6 +2,7 @@ package consul_client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jianghaibo12138/go-consul/consul_client/catalog"
 	"github.com/jianghaibo12138/go-consul/http_client"
@@ -96,6 +97,9 @@ func (client *ConsulClient) CatalogRegister(namespace string, cal *catalog.Regis
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -118,6 +122,9 @@ func (client *ConsulClient) CatalogDeRegister(namespace string, cal *catalog.DeR
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -135,6 +142,9 @@ func (client *ConsulClient) CatalogDatacenters() ([]string, error) {
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -164,6 +174,9 @@ func (client *ConsulClient) CatalogNodes(dc, near, filter string) ([]catalog.Nod
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -191,6 +204,9 @@ func (client *ConsulClient) CatalogServices(dc, nodeMeta, namespace string) (map
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -220,6 +236,9 @@ func (client *ConsulClient) CatalogServiceNodes(service, dc, tag, near, filter, 
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -243,6 +262,9 @@ func (client *ConsulClient) CatalogConnectNodes(service string) ([]catalog.Node,
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -272,6 +294,9 @@ func (client *ConsulClient) CatalogNodeNodes(node, dc, filter, ns string) ([]cat
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -300,6 +325,9 @@ func (client *ConsulClient) CatalogNodeServices(node, dc, filter, ns string) (*c
 	if err != nil {
 		return nil, err
 	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
+	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
@@ -327,6 +355,9 @@ func (client *ConsulClient) CatalogGatewayServices(gateway, dc, ns string) (*cat
 	response, err := httpClient.Request([]byte{})
 	if err != nil {
 		return nil, err
+	}
+	if response.StatusCode != 200 {
+		return nil, errors.New(response.Status)
 	}
 	bytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
