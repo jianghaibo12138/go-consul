@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/jianghaibo12138/go-consul/consul_client/agent"
 	"io"
-	"jianghaibo12138/go-consul/consul_client/agent"
 	"net/http"
 )
 

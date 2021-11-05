@@ -3,9 +3,9 @@ package consul_client
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/jianghaibo12138/go-consul/consul_client/catalog"
+	"github.com/jianghaibo12138/go-consul/http_client"
 	"io/ioutil"
-	"jianghaibo12138/go-consul/consul_client/catalog"
-	"jianghaibo12138/go-consul/http_client"
 	"strings"
 )
 
