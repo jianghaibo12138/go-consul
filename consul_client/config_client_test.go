@@ -17,7 +17,7 @@ func TestConsulClient_ConfigUpsert(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		dc       string
@@ -74,7 +74,7 @@ func TestConsulClient_ConfigGetter(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -116,7 +116,7 @@ func TestConsulClient_ConfigListGetter(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		dc   string
@@ -163,7 +163,7 @@ func TestConsulClient_ConfigDelete(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		dc   string

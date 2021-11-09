@@ -57,7 +57,7 @@ func TestConsulClient_CatalogDatacenters(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -95,7 +95,7 @@ func TestConsulClient_CatalogNodes(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		dc     string
@@ -139,7 +139,7 @@ func TestConsulClient_CatalogServices(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		dc        string
@@ -183,7 +183,7 @@ func TestConsulClient_CatalogServiceNodes(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		service string
@@ -232,7 +232,7 @@ func TestConsulClient_CatalogConnectNodes(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		service string
@@ -276,7 +276,7 @@ func TestConsulClient_CatalogNodeNodes(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		node   string
@@ -323,7 +323,7 @@ func TestConsulClient_CatalogNodeServices(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		node   string

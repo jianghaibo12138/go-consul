@@ -9,11 +9,25 @@ import (
 	"io/ioutil"
 )
 
+//
+// UpsertKey
+// @Description: 新建或更新kv
+// @receiver client
+// @param ns
+// @param key
+// @param dc
+// @param acquire
+// @param release
+// @param flags
+// @param cas
+// @param value
+// @return bool
+// @return error
+//
 func (client *ConsulClient) UpsertKey(ns, key, dc, acquire, release string, flags, cas int, value []byte) (bool, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(kv.KV_UPSERT_KEY[1]), key)
 	paras := packageQueryStrParam(dc, "", "", "", "", ns, acquire, release, "")
 	if len(paras) != 0 {
-		paras = fmt.Sprintf("%s&%s", paras, packageQueryIntParam(flags, cas))
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
 	parasInt := packageQueryIntParam(flags, cas)
@@ -46,6 +60,20 @@ func (client *ConsulClient) UpsertKey(ns, key, dc, acquire, release string, flag
 	return success, nil
 }
 
+//
+// ReadKey
+// @Description: 读取指定key的值
+// @receiver client
+// @param ns
+// @param key
+// @param dc
+// @param recurse
+// @param raw
+// @param keys
+// @param separator
+// @return interface{}
+// @return error
+//
 func (client *ConsulClient) ReadKey(ns, key, dc string, recurse, raw, keys, separator bool) (interface{}, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(kv.KV_READ_KEY[1]), key)
 	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "", "")
@@ -94,6 +122,18 @@ func (client *ConsulClient) ReadKey(ns, key, dc string, recurse, raw, keys, sepa
 	return &kvInfo, nil
 }
 
+//
+// DeleteKey
+// @Description: 删除指定key
+// @receiver client
+// @param ns
+// @param key
+// @param dc
+// @param cas
+// @param recurse
+// @return bool
+// @return error
+//
 func (client *ConsulClient) DeleteKey(ns, key, dc string, cas int, recurse bool) (bool, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(kv.KV_DELETE_KEY[1]), key)
 	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "", "")

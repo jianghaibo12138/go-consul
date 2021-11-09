@@ -14,7 +14,7 @@ func TestConsulClient_GetHostInfos(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -48,7 +48,7 @@ func TestConsulClient_GetMembers(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -84,7 +84,7 @@ func TestConsulClient_GetSelfConfig(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -120,7 +120,7 @@ func TestConsulClient_AgentReload(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -157,7 +157,7 @@ func TestConsulClient_Maintenance(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		enable bool
@@ -202,7 +202,7 @@ func TestConsulClient_Metrics(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		format string
@@ -242,7 +242,7 @@ func TestConsulClient_MetricsWithFormat(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		format string
@@ -284,7 +284,7 @@ func TestConsulClient_Monitor(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		logJson    bool
@@ -334,7 +334,7 @@ func TestConsulClient_Join(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		address string
@@ -378,7 +378,7 @@ func TestConsulClient_Leave(t *testing.T)  {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	tests := []struct {
 		name    string
@@ -414,7 +414,7 @@ func TestConsulClient_ForceLeave(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		node  string

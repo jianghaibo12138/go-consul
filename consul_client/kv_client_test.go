@@ -17,7 +17,7 @@ func TestConsulClient_ReadKey(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		ns        string
@@ -67,7 +67,7 @@ func TestConsulClient_UpsertKey(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		ns      string
@@ -92,6 +92,7 @@ func TestConsulClient_UpsertKey(t *testing.T) {
 		wantErr bool
 	}{
 		{name: "UpsertKey", fields: f, args: args{
+			dc: "dc1",
 			key:   "key",
 			value: jsonByte,
 		}},
@@ -124,7 +125,7 @@ func TestConsulClient_DeleteKey(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		ns      string

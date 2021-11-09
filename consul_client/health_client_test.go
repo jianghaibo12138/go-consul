@@ -16,7 +16,7 @@ func TestConsulClient_NodeHealthStatus(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		node   string
@@ -66,7 +66,7 @@ func TestConsulClient_ServiceHealthStatus(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		service  string
@@ -120,7 +120,7 @@ func TestConsulClient_ServiceInstances(t *testing.T) {
 	f := fields{
 		Host:  "127.0.0.1",
 		Port:  8500,
-		Token: "",
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
 		service  string
