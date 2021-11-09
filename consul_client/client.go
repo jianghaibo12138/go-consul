@@ -1,5 +1,7 @@
 package consul_client
 
+import "fmt"
+
 type ConsulClient struct {
 	Host  string `json:"host"`
 	Port  int    `json:"port"`
@@ -12,10 +14,10 @@ const (
 	HTTPS_URL_TPL = "http://%s:%d%s"
 )
 
-func (client *ConsulClient) packageRequestTpl() string {
-	var tpl = HTTP_URL_TPL
+func (client *ConsulClient) packageRequestTpl(urlSuffix string) string {
+	var tpl = fmt.Sprintf(HTTP_URL_TPL, client.Host, client.Port, urlSuffix)
 	if client.Ssl {
-		tpl = HTTPS_URL_TPL
+		tpl = fmt.Sprintf(HTTPS_URL_TPL, client.Host, client.Port, urlSuffix)
 	}
 	return tpl
 }

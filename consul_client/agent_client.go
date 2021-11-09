@@ -12,7 +12,7 @@ import (
 func (client *ConsulClient) AgentGetHostInfos() (*agent.Agent, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_HOSTS[0],
-		Url:         fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_HOSTS[1]),
+		Url:         client.packageRequestTpl(agent.GET_AGENT_HOSTS[1]),
 		ContentType: agent.GET_AGENT_HOSTS[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -38,7 +38,7 @@ func (client *ConsulClient) AgentGetHostInfos() (*agent.Agent, error) {
 func (client *ConsulClient) AgentGetMembers() (*[]agent.Members, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_MEMBERS[0],
-		Url:         fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_MEMBERS[1]),
+		Url:         client.packageRequestTpl(agent.GET_AGENT_MEMBERS[1]),
 		ContentType: agent.GET_AGENT_MEMBERS[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -64,7 +64,7 @@ func (client *ConsulClient) AgentGetMembers() (*[]agent.Members, error) {
 func (client *ConsulClient) AgentGetSelfConfig() (*agent.SelfConfig, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_SELF[0],
-		Url:         fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_SELF[1]),
+		Url:         client.packageRequestTpl(agent.GET_AGENT_SELF[1]),
 		ContentType: agent.GET_AGENT_SELF[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -90,7 +90,7 @@ func (client *ConsulClient) AgentGetSelfConfig() (*agent.SelfConfig, error) {
 func (client *ConsulClient) AgentReload() (int, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_RELOAD[0],
-		Url:         fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_RELOAD[1]),
+		Url:         client.packageRequestTpl(agent.GET_AGENT_RELOAD[1]),
 		ContentType: agent.GET_AGENT_RELOAD[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -107,7 +107,7 @@ func (client *ConsulClient) AgentReload() (int, error) {
 func (client *ConsulClient) AgentMaintenance(enable bool, reason string) (int, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_MAINTENANCE[0],
-		Url:         fmt.Sprintf("%s?enable=%v&reason=%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_MAINTENANCE[1]), enable, reason),
+		Url:         fmt.Sprintf("%s?enable=%v&reason=%s", client.packageRequestTpl(agent.GET_AGENT_MAINTENANCE[1]), enable, reason),
 		ContentType: agent.GET_AGENT_MAINTENANCE[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -122,7 +122,7 @@ func (client *ConsulClient) AgentMaintenance(enable bool, reason string) (int, e
 }
 
 func (client *ConsulClient) AgentMetrics(format string) (*agent.Metrics, error) {
-	url := fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_METRICS[1])
+	url := client.packageRequestTpl(agent.GET_AGENT_METRICS[1])
 
 	if len(format) != 0 {
 		url = fmt.Sprintf("%s?format=%s", url, format)
@@ -154,7 +154,7 @@ func (client *ConsulClient) AgentMetrics(format string) (*agent.Metrics, error) 
 }
 
 func (client *ConsulClient) AgentMetricsWithFormat(format string) (*[]byte, error) {
-	url := fmt.Sprintf("%s?format=%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_METRICS[1]), format)
+	url := fmt.Sprintf("%s?format=%s", client.packageRequestTpl(agent.GET_AGENT_METRICS[1]), format)
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_METRICS[0],
 		Url:         url,
@@ -200,7 +200,7 @@ func (client *ConsulClient) AgentMonitor(logJson bool, logLevel string, logChann
 }
 
 func (client *ConsulClient) AgentJoin(address string, wan bool) (*[]byte, error) {
-	url := fmt.Sprintf("%s/%s/%+v", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_JOIN[1]), address, wan)
+	url := fmt.Sprintf("%s/%s/%+v", client.packageRequestTpl(agent.GET_AGENT_JOIN[1]), address, wan)
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_JOIN[0],
 		Url:         url,
@@ -224,7 +224,7 @@ func (client *ConsulClient) AgentJoin(address string, wan bool) (*[]byte, error)
 func (client *ConsulClient) AgentLeave() (*[]byte, error) {
 	httpClient := http_client.HttpClient{
 		Method:      agent.GET_AGENT_LEAVE[0],
-		Url:         fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_LEAVE[1]),
+		Url:         client.packageRequestTpl(agent.GET_AGENT_LEAVE[1]),
 		ContentType: agent.GET_AGENT_LEAVE[2],
 		Headers:     map[string]string{CONSUL_TOKEN_KEY: client.Token},
 	}
@@ -243,7 +243,7 @@ func (client *ConsulClient) AgentLeave() (*[]byte, error) {
 }
 
 func (client *ConsulClient) AgentForceLeave(node string, prune bool) (*[]byte, error) {
-	url := fmt.Sprintf("%s/%s", fmt.Sprintf(client.packageRequestTpl(), client.Host, client.Port, agent.GET_AGENT_FORCE_LEAVE[1]), node)
+	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(agent.GET_AGENT_FORCE_LEAVE[1]), node)
 	if prune {
 		url = fmt.Sprintf("%s?prnue", url)
 	}

@@ -1,0 +1,21 @@
+{
+  "ID": "gin-consul",
+  "Name": "GinConsul",
+  "Tags": ["primary", "v1"],
+  "Address": "192.168.7.100",
+  "Port": 8080,
+  "Meta": {
+    "redis_version": "4.0"
+  },
+  "EnableTagOverride": false,
+  "Check": {
+    "DeregisterCriticalServiceAfter": "90m",
+    "Args": [],
+    "Interval": "10s",
+    "Timeout": "5s"
+  },
+  "Weights": {
+    "Passing": 10,
+    "Warning": 1
+  }
+}
