@@ -32,5 +32,10 @@ Consul环境快速搭建 👁 这里: [learn-consul-docker](https://github.com/h
 
 > 注意: 目前还未对Consul Enterprise进行测试
 
+## 安装
+```bash
+go get -u github.com/jianghaibo12138/go-consul
+```
+
 ## 示例
 还没来得及写, 可以查看 [example](https://github.com/jianghaibo12138/go-consul/tree/main/examples) 中的简单示例
