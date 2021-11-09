@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jianghaibo12138/go-consul/consul_client"
-	"github.com/jianghaibo12138/go-consul/consul_client/service"
+	"github.com/jianghaibo12138/go-consul/consul_client/check"
 	"os"
 )
 
@@ -24,13 +24,13 @@ func consulRegister() {
 		Token: Token,
 		Ssl:   Ssl,
 	}
-	bytes := consul_client.ReadJsonConf("./examples/gin-consul/json_conf/service_register.json")
-	var srv service.RegisterService
-	err := json.Unmarshal(bytes, &srv)
+	bytes := consul_client.ReadJsonConf("./examples/gin-consul/json_conf/check_register.json")
+	var payload check.RegisterPayload
+	err := json.Unmarshal(bytes, &payload)
 	if err != nil {
 		panic(err)
 	}
-	infoS, err := client.RegisterService(srv)
+	infoS, err := client.CheckRegister(payload)
 	if err != nil {
 		panic(err)
 	}
@@ -38,7 +38,7 @@ func consulRegister() {
 }
 
 func main() {
-	// consulRegister()
+	consulRegister()
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{

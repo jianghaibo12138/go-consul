@@ -2,7 +2,7 @@
   "ID": "gin-consul",
   "Name": "GinConsul",
   "Notes": "Gin consul service alive checking",
-  "DeregisterCriticalServiceAfter": "90m",
+  "DeregisterCriticalServiceAfter": "90s",
   "HTTP": "http://192.168.7.100:8080/ping",
   "Method": "GET",
   "Header": {
