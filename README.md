@@ -2,7 +2,9 @@
 
 封装了 Consul HTTP Api 的SDK
 
-Consul的文档👁这里: [consul](https://www.consul.io/api-docs)
+Consul的文档 👁 这里: [consul](https://www.consul.io/api-docs)
+
+Consul环境快速搭建 👁 这里: [learn-consul-docker](https://github.com/hashicorp/learn-consul-docker)
 
 ## 目前完成
 
