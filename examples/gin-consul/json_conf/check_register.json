@@ -1,0 +1,17 @@
+{
+  "ID": "gin-consul",
+  "Name": "GinConsul",
+  "Notes": "Gin consul service alive checking",
+  "DeregisterCriticalServiceAfter": "90m",
+  "HTTP": "http://192.168.7.100:8080/ping",
+  "Method": "GET",
+  "Header": {
+    "Content-Type": [
+      "application/json"
+    ]
+  },
+  "Body": "\"message\": \"pong\"",
+  "Interval": "10s",
+  "Timeout": "5s",
+  "TLSSkipVerify": true
+}
