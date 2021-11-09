@@ -9,6 +9,14 @@ import (
 	"io/ioutil"
 )
 
+//
+// RegisterService
+// @Description: 注册service
+// @receiver client
+// @param srv
+// @return bool
+// @return error
+//
 func (client *ConsulClient) RegisterService(srv service.Payload) (bool, error) {
 	url := client.packageRequestTpl(service.SERVICE_REGISTER[1])
 	paras := packageQueryBoolParam(false, false, false, false, false, true)
@@ -41,6 +49,14 @@ func (client *ConsulClient) RegisterService(srv service.Payload) (bool, error) {
 	return true, nil
 }
 
+//
+// DeRegisterService
+// @Description: 注销service
+// @receiver client
+// @param serviceId
+// @return bool
+// @return error
+//
 func (client *ConsulClient) DeRegisterService(serviceId string) (bool, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_DEREGISTER[1]), serviceId)
 	httpClient := http_client.HttpClient{
@@ -104,6 +120,15 @@ func (client *ConsulClient) ServiceList(filter, ns string) (map[string]service.D
 	return agentService, nil
 }
 
+//
+// GetServiceConfiguration
+// @Description: 通过serviceId获取服务配置信息
+// @receiver client
+// @param serviceId
+// @param ns
+// @return *service.Configuration
+// @return error
+//
 func (client *ConsulClient) GetServiceConfiguration(serviceId, ns string) (*service.Configuration, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_CONFIGURATION[1]), serviceId)
 	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
@@ -135,6 +160,15 @@ func (client *ConsulClient) GetServiceConfiguration(serviceId, ns string) (*serv
 	return &info, nil
 }
 
+//
+// GetServiceHealthByName
+// @Description: 通过serviceName获取service健康状态
+// @receiver client
+// @param serviceName
+// @param ns
+// @return *[]service.Health
+// @return error
+//
 func (client *ConsulClient) GetServiceHealthByName(serviceName, ns string) (*[]service.Health, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_HEALTH_BY_NAME[1]), serviceName)
 	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
@@ -166,7 +200,16 @@ func (client *ConsulClient) GetServiceHealthByName(serviceName, ns string) (*[]s
 	return &info, nil
 }
 
-func (client *ConsulClient) GetServiceHealthById(serviceId, ns string) (*[]service.Health, error) {
+//
+// GetServiceHealthById
+// @Description: 通过serviceId获取service健康状态
+// @receiver client
+// @param serviceId
+// @param ns
+// @return *service.Health
+// @return error
+//
+func (client *ConsulClient) GetServiceHealthById(serviceId, ns string) (*service.Health, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_HEALTH_BY_ID[1]), serviceId)
 	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
 	if len(paras) != 0 {
@@ -189,7 +232,7 @@ func (client *ConsulClient) GetServiceHealthById(serviceId, ns string) (*[]servi
 	if err != nil {
 		return nil, err
 	}
-	var info []service.Health
+	var info service.Health
 	err = json.Unmarshal(jsonBytes, &info)
 	if err != nil {
 		return nil, err

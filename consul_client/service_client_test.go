@@ -49,9 +49,7 @@ func TestConsulClient_RegisterService(t *testing.T) {
 				t.Errorf("Payload() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got != tt.want {
-				t.Errorf("Payload() got = %v, want %v", got, tt.want)
-			}
+			t.Log(got)
 		})
 	}
 }
@@ -117,7 +115,7 @@ func TestConsulClient_GetServiceConfiguration(t *testing.T) {
 		ns        string
 	}
 	c1 := args{
-		serviceId: "redis1",
+		serviceId: "stp-go",
 	}
 	tests := []struct {
 		name    string
@@ -163,7 +161,7 @@ func TestConsulClient_GetServiceHealthByName(t *testing.T) {
 		ns          string
 	}
 	c1 := args{
-		serviceName: "redis",
+		serviceName: "StpGo",
 	}
 	tests := []struct {
 		name    string
@@ -208,7 +206,7 @@ func TestConsulClient_DeRegisterService(t *testing.T) {
 		serviceId string
 	}
 	c1 := args{
-		serviceId: "redis1",
+		serviceId: "stp-go",
 	}
 	tests := []struct {
 		name    string
@@ -235,6 +233,52 @@ func TestConsulClient_DeRegisterService(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("DeRegisterService() got = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func TestConsulClient_GetServiceHealthById(t *testing.T) {
+	type fields struct {
+		Host  string
+		Port  int
+		Token string
+		Ssl   bool
+	}
+	f := fields{
+		Host:  "127.0.0.1",
+		Port:  8500,
+		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
+	}
+	type args struct {
+		serviceId string
+		ns        string
+	}
+	c1 := args{
+		serviceId: "stp-go",
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *service.Health
+		wantErr bool
+	}{
+		{name: "c1", fields: f, args: c1, wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			client := &ConsulClient{
+				Host:  tt.fields.Host,
+				Port:  tt.fields.Port,
+				Token: tt.fields.Token,
+				Ssl:   tt.fields.Ssl,
+			}
+			got, err := client.GetServiceHealthById(tt.args.serviceId, tt.args.ns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetServiceHealthById() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			t.Log(got)
 		})
 	}
 }

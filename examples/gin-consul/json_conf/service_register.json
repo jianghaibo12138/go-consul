@@ -2,16 +2,16 @@
   "ID": "stp-go",
   "Name": "StpGo",
   "Tags": [],
-  "Address": "192.168.7.107",
-  "Port": 8383,
+  "Address": "192.168.0.114",
+  "Port": 8080,
   "Meta": {},
   "EnableTagOverride": false,
   "Check": {
     "DeregisterCriticalServiceAfter": "90m",
-    "Args": [],
+    "Args": ["curl", "http://192.168.0.114:8080/ping"],
     "Interval": "10s",
     "Timeout": "5s",
-    "HTTP": "",
+    "HTTP": ""
   },
   "Weights": {
     "Passing": 10,
