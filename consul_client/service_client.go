@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 )
 
-func (client *ConsulClient) RegisterService(srv service.RegisterService) (bool, error) {
+func (client *ConsulClient) RegisterService(srv service.Payload) (bool, error) {
 	url := client.packageRequestTpl(service.SERVICE_REGISTER[1])
 	paras := packageQueryBoolParam(false, false, false, false, false, true)
 	if len(paras) != 0 {
@@ -30,8 +30,13 @@ func (client *ConsulClient) RegisterService(srv service.RegisterService) (bool, 
 	if err != nil {
 		return false, err
 	}
+	jsonBytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return false, err
+	}
+	fmt.Println(jsonBytes)
 	if response.StatusCode != 200 {
-		return false, errors.New(response.Status)
+		return false, err
 	}
 	return true, nil
 }
@@ -59,9 +64,21 @@ func (client *ConsulClient) DeRegisterService(serviceId string) (bool, error) {
 	return true, nil
 }
 
-func (client *ConsulClient) ServiceList() (map[string]interface{}, error) {
+//
+// ServiceList
+// @Description: 获取所有的服务
+// @receiver client
+// @param filter
+// @param ns
+// @return map[string]service.Detail
+// @return error
+//
+func (client *ConsulClient) ServiceList(filter, ns string) (map[string]service.Detail, error) {
 	url := client.packageRequestTpl(service.SERVICE_LIST[1])
-
+	params := packageQueryStrParam("", "", "", "", filter, ns, "", "", "")
+	if len(params) != 0 {
+		url = fmt.Sprintf("%s?%s", url, params)
+	}
 	httpClient := http_client.HttpClient{
 		Method:      service.SERVICE_LIST[0],
 		Url:         url,
@@ -79,7 +96,7 @@ func (client *ConsulClient) ServiceList() (map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	var agentService = make(map[string]interface{})
+	var agentService = make(map[string]service.Detail)
 	err = json.Unmarshal(jsonBytes, &agentService)
 	if err != nil {
 		return nil, err

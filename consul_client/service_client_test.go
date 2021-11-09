@@ -19,7 +19,7 @@ func TestConsulClient_RegisterService(t *testing.T) {
 		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
 	type args struct {
-		srv service.RegisterService
+		srv service.Payload
 	}
 	var c1 args
 	bytes := ReadJsonConf("../examples/gin-consul/json_conf/service_register.json")
@@ -46,11 +46,11 @@ func TestConsulClient_RegisterService(t *testing.T) {
 			}
 			got, err := client.RegisterService(tt.args.srv)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("RegisterService() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Payload() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("RegisterService() got = %v, want %v", got, tt.want)
+				t.Errorf("Payload() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -68,13 +68,19 @@ func TestConsulClient_ServiceList(t *testing.T) {
 		Port:  8500,
 		Token: "e95b599e-166e-7d80-08ad-aee76e7ddf19",
 	}
+	type args struct {
+		filter string
+		ns     string
+	}
+	c1 := args{}
 	tests := []struct {
 		name    string
 		fields  fields
+		args    args
 		want    map[string]interface{}
 		wantErr bool
 	}{
-		{name: "c1", fields: f, wantErr: false},
+		{name: "c1", fields: f, args: c1, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -84,7 +90,7 @@ func TestConsulClient_ServiceList(t *testing.T) {
 				Token: tt.fields.Token,
 				Ssl:   tt.fields.Ssl,
 			}
-			got, err := client.ServiceList()
+			got, err := client.ServiceList(tt.args.filter, tt.args.ns)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ServiceList() error = %v, wantErr %v", err, tt.wantErr)
 				return

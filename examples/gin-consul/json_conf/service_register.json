@@ -1,18 +1,17 @@
 {
-  "ID": "gin-consul",
-  "Name": "GinConsul",
-  "Tags": ["primary", "v1"],
-  "Address": "192.168.7.100",
-  "Port": 8080,
-  "Meta": {
-    "redis_version": "4.0"
-  },
+  "ID": "stp-go",
+  "Name": "StpGo",
+  "Tags": [],
+  "Address": "192.168.7.107",
+  "Port": 8383,
+  "Meta": {},
   "EnableTagOverride": false,
   "Check": {
     "DeregisterCriticalServiceAfter": "90m",
     "Args": [],
     "Interval": "10s",
-    "Timeout": "5s"
+    "Timeout": "5s",
+    "HTTP": "",
   },
   "Weights": {
     "Passing": 10,
