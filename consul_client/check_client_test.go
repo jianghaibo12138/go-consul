@@ -49,7 +49,8 @@ func TestConsulClient_CheckRegister(t *testing.T) {
 				t.Errorf("CheckRegister() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }
@@ -140,7 +141,8 @@ func TestConsulClient_CheckList(t *testing.T) {
 				t.Errorf("CheckList() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }

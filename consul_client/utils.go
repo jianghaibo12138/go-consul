@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, acquire, release, format string) string {
+func packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, acquire, release, format, source, destination, by, name string) string {
 	var paraStrArr []string
 	if dc != "" {
 		paraStrArr = append(paraStrArr, fmt.Sprintf("dc=%s", dc))
@@ -35,6 +35,18 @@ func packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, acquire, release,
 	}
 	if format != "" {
 		paraStrArr = append(paraStrArr, fmt.Sprintf("format=%s", format))
+	}
+	if source != "" {
+		paraStrArr = append(paraStrArr, fmt.Sprintf("source=%s", source))
+	}
+	if destination != "" {
+		paraStrArr = append(paraStrArr, fmt.Sprintf("destination=%s", destination))
+	}
+	if by != "" {
+		paraStrArr = append(paraStrArr, fmt.Sprintf("by=%s", by))
+	}
+	if name != "" {
+		paraStrArr = append(paraStrArr, fmt.Sprintf("name=%s", name))
 	}
 	var paraStr string
 	if len(paraStrArr) != 0 {

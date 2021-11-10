@@ -49,7 +49,8 @@ func TestConsulClient_RegisterService(t *testing.T) {
 				t.Errorf("Payload() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }
@@ -93,7 +94,8 @@ func TestConsulClient_ServiceList(t *testing.T) {
 				t.Errorf("ServiceList() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }
@@ -139,7 +141,8 @@ func TestConsulClient_GetServiceConfiguration(t *testing.T) {
 				t.Errorf("GetServiceConfiguration() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }
@@ -185,7 +188,8 @@ func TestConsulClient_GetServiceHealthByName(t *testing.T) {
 				t.Errorf("GetServiceHealthByName() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }
@@ -278,7 +282,8 @@ func TestConsulClient_GetServiceHealthById(t *testing.T) {
 				t.Errorf("GetServiceHealthById() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }

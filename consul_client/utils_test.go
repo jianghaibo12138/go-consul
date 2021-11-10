@@ -21,7 +21,8 @@ func TestReadJsonConf(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := ReadJsonConf(tt.args.filePath)
-			t.Log(got)
+			
+t.Logf("%+v", got)
 		})
 	}
 }

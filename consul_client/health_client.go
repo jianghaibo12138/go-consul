@@ -11,7 +11,7 @@ import (
 
 func (client *ConsulClient) NodeHealthStatus(node, ns, dc, filter string) ([]health.NodeStatus, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(health.NODE_HEALTH_STATUS[1]), node)
-	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -43,7 +43,7 @@ func (client *ConsulClient) NodeHealthStatus(node, ns, dc, filter string) ([]hea
 
 func (client *ConsulClient) ServiceHealthStatus(service, ns, dc, filter, near, nodeMeta string) ([]health.ServiceStatus, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(health.SERVICE_HEALTH_STATUS[1]), service)
-	paras := packageQueryStrParam(dc, "", near, nodeMeta, filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, "", near, nodeMeta, filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -75,7 +75,7 @@ func (client *ConsulClient) ServiceHealthStatus(service, ns, dc, filter, near, n
 
 func (client *ConsulClient) ServiceInstances(service, ns, dc, filter, near, tag, nodeMeta string, passing bool) ([]health.ServiceInstance, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(health.SERVICE_INSTANCES[1]), service)
-	paras := packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, tag, near, nodeMeta, filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		paras = fmt.Sprintf("%s&%s", paras, packageQueryBoolParam(false, false, false, false, passing, false))
 		url = fmt.Sprintf("%s?%s", url, paras)

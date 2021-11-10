@@ -77,7 +77,7 @@ func (client *ConsulClient) CheckDeRegister(checkId string) (bool, error) {
 //
 func (client *ConsulClient) CheckList(filter, ns string) (map[string]interface{}, error) {
 	url := client.packageRequestTpl(check.CHECK_LIST[1])
-	params := packageQueryStrParam("", "", "", "", filter, ns, "", "", "")
+	params := packageQueryStrParam("", "", "", "", filter, ns, "", "", "", "", "", "", "")
 	if len(params) != 0 {
 		url = fmt.Sprintf("%s?%s", url, params)
 	}

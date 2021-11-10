@@ -87,7 +87,7 @@ func (client *ConsulClient) CatalogDatacenters() ([]string, error) {
 
 func (client *ConsulClient) CatalogNodes(dc, near, filter string) ([]catalog.Node, error) {
 	url := client.packageRequestTpl(catalog.CATALOG_NODES[1])
-	paras := packageQueryStrParam(dc, "", near, "", filter, "", "", "", "")
+	paras := packageQueryStrParam(dc, "", near, "", filter, "", "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -118,7 +118,7 @@ func (client *ConsulClient) CatalogNodes(dc, near, filter string) ([]catalog.Nod
 
 func (client *ConsulClient) CatalogServices(dc, nodeMeta, namespace string) (map[string][]string, error) {
 	url := client.packageRequestTpl(catalog.CATALOG_SERVICES[1])
-	paras := packageQueryStrParam(dc, "", "", nodeMeta, "", namespace, "", "", "")
+	paras := packageQueryStrParam(dc, "", "", nodeMeta, "", namespace, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -149,7 +149,7 @@ func (client *ConsulClient) CatalogServices(dc, nodeMeta, namespace string) (map
 
 func (client *ConsulClient) CatalogServiceNodes(service, dc, tag, near, filter, ns string) ([]catalog.Node, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(catalog.CATALOG_SERVICE_NODES[1]), service)
-	paras := packageQueryStrParam(dc, tag, near, "", filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, tag, near, "", filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -207,7 +207,7 @@ func (client *ConsulClient) CatalogConnectNodes(service string) ([]catalog.Node,
 
 func (client *ConsulClient) CatalogNodeNodes(node, dc, filter, ns string) ([]catalog.Node, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(catalog.CATALOG_NODE_NODES[1]), node)
-	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -238,7 +238,7 @@ func (client *ConsulClient) CatalogNodeNodes(node, dc, filter, ns string) ([]cat
 
 func (client *ConsulClient) CatalogNodeServices(node, dc, filter, ns string) (*catalog.NodeServices, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(catalog.CATALOG_NODE_SERVICES[1]), node)
-	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "")
+	paras := packageQueryStrParam(dc, "", "", "", filter, ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -269,7 +269,7 @@ func (client *ConsulClient) CatalogNodeServices(node, dc, filter, ns string) (*c
 
 func (client *ConsulClient) CatalogGatewayServices(gateway, dc, ns string) (*catalog.Gateway, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(catalog.CATALOG_GATEWAY_SERVICES[1]), gateway)
-	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "", "")
+	paras := packageQueryStrParam(dc, "", "", "", "", ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}

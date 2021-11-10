@@ -91,7 +91,7 @@ func (client *ConsulClient) DeRegisterService(serviceId string) (bool, error) {
 //
 func (client *ConsulClient) ServiceList(filter, ns string) (map[string]service.Detail, error) {
 	url := client.packageRequestTpl(service.SERVICE_LIST[1])
-	params := packageQueryStrParam("", "", "", "", filter, ns, "", "", "")
+	params := packageQueryStrParam("", "", "", "", filter, ns, "", "", "", "", "", "", "")
 	if len(params) != 0 {
 		url = fmt.Sprintf("%s?%s", url, params)
 	}
@@ -131,7 +131,7 @@ func (client *ConsulClient) ServiceList(filter, ns string) (map[string]service.D
 //
 func (client *ConsulClient) GetServiceConfiguration(serviceId, ns string) (*service.Configuration, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_CONFIGURATION[1]), serviceId)
-	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
+	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -171,7 +171,7 @@ func (client *ConsulClient) GetServiceConfiguration(serviceId, ns string) (*serv
 //
 func (client *ConsulClient) GetServiceHealthByName(serviceName, ns string) (*[]service.Health, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_HEALTH_BY_NAME[1]), serviceName)
-	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
+	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
@@ -211,7 +211,7 @@ func (client *ConsulClient) GetServiceHealthByName(serviceName, ns string) (*[]s
 //
 func (client *ConsulClient) GetServiceHealthById(serviceId, ns string) (*service.Health, error) {
 	url := fmt.Sprintf("%s/%s", client.packageRequestTpl(service.SERVICE_HEALTH_BY_ID[1]), serviceId)
-	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "")
+	paras := packageQueryStrParam("", "", "", "", "", ns, "", "", "", "", "", "", "")
 	if len(paras) != 0 {
 		url = fmt.Sprintf("%s?%s", url, paras)
 	}
